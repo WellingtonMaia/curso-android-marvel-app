@@ -16,6 +16,7 @@ detekt {
     source.setFrom(files(inputDirFiles))
     config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
     autoCorrect = true
+    buildUponDefaultConfig = true
 }
 
 tasks.named("detekt").configure {
