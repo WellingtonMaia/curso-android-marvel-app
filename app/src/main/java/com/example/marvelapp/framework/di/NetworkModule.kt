@@ -1,7 +1,8 @@
 package com.example.marvelapp.framework.di
 
-import com.example.core.data.network.interceptor.AuthorizationInterceptor
+import com.example.marvelapp.framework.network.interceptor.AuthorizationInterceptor
 import com.example.marvelapp.BuildConfig
+import com.example.marvelapp.framework.network.MarvelApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Calendar
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
-import kotlin.String
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -64,11 +64,12 @@ object NetworkModule {
     fun provideRetrofit(
         okhttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
-    ): Retrofit {
+    ): MarvelApi {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okhttpClient)
             .addConverterFactory(converterFactory)
             .build()
+            .create(MarvelApi::class.java)
     }
 }
